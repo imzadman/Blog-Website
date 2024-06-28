@@ -120,7 +120,7 @@ export function PostForm({ post }) {
             placeholder="Choose a file"
             label="Image: "
             accept="image/*"
-            className="mb-3"
+            className="mb-3 px-8 py-12"
             {...register("image", { required: !post })}
           />
           {/*Img Preview */}
