@@ -27,7 +27,7 @@ function App() {
     return (
       <div className="w-full">
         <Header />
-        <main className="w-full min-h-screen">
+        <main className="w-full min-h-full">
           <Outlet />
         </main>
         <Footer />

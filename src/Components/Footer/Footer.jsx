@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="w-full">
       <div className="main flex flex-col py-4 px-2">
         <div className="footer1 flex flex-wrap items-center justify-around">
-          <div className="logo">
+          <div className="logo mb-4 lg:mb-0 ">
             <Link
               to="/"
               className="font-semibold text-zinc-800"

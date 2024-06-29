@@ -42,30 +42,32 @@ function Post() {
         <img
           src={storageService.previewFile(post.featuredImage)}
           alt={post.title}
-          className="rounded w-[50%] "
+          className="rounded w-[90%] lg:w-[50%] mt-10 lg:mt-0 "
         />
         {/* Button */}
         {isAuthor && (
-          <div className="absolute right-6 top-0">
+          <div className="absolute right-0 top-0">
             <Link to={`/edit-post/${post.$id}`}>
-              <Button className="bg-green-500 text-white mr-3">Edit</Button>
+              <Button className="bg-green-500 text-white mr-3 text-xs lg:text-[1.1rem] lg:py-2 ">
+                Edit
+              </Button>
             </Link>
             <Button
               type="submit"
               onClick={deleteHandler}
-              className="bg-red-500 text-white"
+              className="bg-red-500 text-white text-xs lg:text-[1.1rem] lg:py-2 "
             >
               Delete
             </Button>
           </div>
         )}
         <div className="arrow">
-          <p className="absolute top-0 left-6">
+          <p className="absolute top-0 left-0">
             <Link
               to={"/"}
               className="py-1 px-2 font-mono bg-blue-500 hover:opacity-[90%] active:text-xs duration-100 text-gray-50 text-sm rounded"
             >
-              Go to Homepage
+              Back
             </Link>
           </p>
         </div>
@@ -80,7 +82,7 @@ function Post() {
         </Link>
       </div>
       {/* Content */}
-      <div className="w-full text-center px-10 font-mono">
+      <div className="w-full lg:text-center px-2 lg:px-10 font-mono">
         {parse(post.content)}
       </div>
     </div>

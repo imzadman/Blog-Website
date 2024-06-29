@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export function Card({ $id, title, featuredImage }) {
   return (
-    <div className="w-[25vw] h-[36vh] py-4 px-4 rounded hover:bg-gray-200 group">
+    <div className=" w-[90vw] h-fit lg:w-[40vw] xl:w-[25vw] py-4 px-4 rounded hover:bg-gray-200 group">
       <Link
         to={`/post/${$id}`}
         className="flex flex-col gap-2 object-contain relative "

@@ -13,11 +13,11 @@ function AllPosts() {
     });
   }, []);
   return posts && posts.length > 0 ? (
-    <div className="w-full min-h-screen py-4 px-2">
+    <div className="w-full min-h-full py-4 px-2">
       <h1 className="text-xl hover:underline font-semibold font-mono text-center mb-4">
         All Posts
       </h1>
-      <div className="w-full flex gap-4 flex-wrap justify-center h-screen">
+      <div className="w-full flex gap-4 flex-wrap justify-center h-full">
         {posts.map((post) => (
           <div key={post.$id} className="">
             <Card {...post} />

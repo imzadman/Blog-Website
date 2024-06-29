@@ -6,7 +6,7 @@ export function Register() {
   return (
     <button
       onClick={() => navigate("/login")}
-      className="py-1 px-2 bg-blue-500 hover:opacity-[85%] font-mono text-white duration-100"
+      className=" py-1 lg:py-2 px-2 bg-blue-500 hover:opacity-[85%] font-mono text-white duration-100 text-xs lg:text-[1rem]"
     >
       Register
     </button>

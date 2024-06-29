@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 
 export function About() {
   return (
-    <div className="flex flex-col font-mono items-center justify-center w-full min-h-screen">
-      <h1 className="text-2xl font-semibold">
-        Hi! Thank You for visiting my page
+    <div className="flex flex-col gap-4 font-mono items-center justify-center w-full min-h-screen">
+      <h1 className="text-2xl font-semibold text-center">
+        Hi!Thank You for visiting my page
       </h1>
       <h1>
+        {" "}
         I am <span className="font-semibold text-2xl text-red-400">Zaid</span>
       </h1>
 
       <div className="links">
-        <p className="font-mono text-sm">
+        <p className="font-mono text-sm ">
           You can visit me on these&nbsp;→&nbsp;
           <Link to={"https://www.instagram.com/imzadman/"} target="main">
             <i className="fa-brands fa-instagram text-lg hover:text-blue-500 duration-100"></i>

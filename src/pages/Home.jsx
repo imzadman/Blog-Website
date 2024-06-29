@@ -18,22 +18,22 @@ function Home() {
   return posts && posts.length >= 0 ? (
     <>
       <div className="hero-section">
-        <div className="flex w-full flex-wrap  justify-evenly items-center py-4 px-2">
-          <div className="img w-[30%] object-contain flex ">
+        <div className="flex flex-col lg:flex-row w-full flex-wrap gap-8 lg:justify-evenly items-center py-4 px-2">
+          <div className="img w-[60%] lg:w-[30%] object-contain flex ">
             <img src={Images.image2} alt="img" className="" />
           </div>
           {authStatus ? (
             <div className="w-[40%] flex flex-col gap-3 items-center justify-center">
-              <p className="font-mono text-lg font-light">
+              <p className="font-mono lg:text-lg font-light text-center">
                 Click the btn ⬇ to share a post{" "}
               </p>
-              <Button className="bg-green-500 py-1 px-2 font-mono text-gray-50 text-lg">
+              <Button className="bg-green-500 py-1 px-2 font-mono text-gray-50 lg:text-lg">
                 <Link to="/add-post">Add Post</Link>
               </Button>
             </div>
           ) : (
             <div className="w-[40%] flex flex-col gap-3 items-center justify-center">
-              <p className="font-mono text-sm">
+              <p className="font-mono text-center text-sm">
                 Please{" "}
                 <Link
                   className="font-mono font-semibold text-2xl duration-100 underline"
@@ -77,18 +77,22 @@ function Home() {
                 to see <span className="font-semibold text-2xl">Posts</span>
               </p>
             </div>
-            <div className="flex items-center justify-center relative">
-              <img src={Images.image3} alt="img" className="w-[30%] " />
-              <span className=" hover:opacity-[90%] absolute bottom-[89px] left-[593px] bg-red-500 font-mono text-white py-1 px-2 text-xs rounded-full">
+            <div className="flex items-center justify-center relative mt-8 lg:mt-2 ">
+              <img
+                src={Images.image3}
+                alt="img"
+                className="lg:w-[30%] w-[90%] "
+              />
+              <span className=" bottom-[58px] left-[50px] lg:bottom-[56px] lg:left-[385px] xl:bottom-[72px] xl:left-[493px]  hover:opacity-[90%] absolute 2xl:bottom-[89px] 2xl:left-[593px] bg-red-500 font-mono text-white py-1 px-2 text-sm rounded-full">
                 <Link to="/login">Log in</Link>
               </span>
-              <span className=" hover:opacity-[90%] absolute bottom-[89px] right-[587px] bg-blue-500 font-mono text-white py-1 px-2 text-xs rounded-full">
+              <span className=" bottom-[56px] right-[50px] lg:bottom-[56px] lg:right-[380px] xl:bottom-[72px] xl:right-[485px] hover:opacity-[90%] absolute 2xl:bottom-[89px] 2xl:right-[587px] bg-blue-500 font-mono text-white py-1 px-2 text-sm rounded-full">
                 <Link to="/signup">Sign up</Link>
               </span>
             </div>
           </>
         )}
-        <div className="w-full grid grid-cols-3 place-items-center h-screen">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 place-items-center h-full">
           {authStatus &&
             posts?.map((post) => (
               <div key={post.$id} className="">

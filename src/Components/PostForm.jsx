@@ -78,8 +78,11 @@ export function PostForm({ post }) {
   }, [setValue, slugTransform, watch]);
   return (
     <div className="w-full py-4 px-2 ">
-      <form onSubmit={handleSubmit(handler)} className="flex w-full flex-wrap">
-        <div className="first w-[60%] flex flex-col justify-center px-3">
+      <form
+        onSubmit={handleSubmit(handler)}
+        className="flex flex-col lg:flex-row w-full flex-wrap"
+      >
+        <div className="first lg:w-[60%] flex flex-col justify-center px-3">
           {/* Title */}
           <Input
             type="text"
@@ -113,7 +116,7 @@ export function PostForm({ post }) {
             defaultValue={getValues("content")}
           />
         </div>
-        <div className="second w-[40%] flex flex-col pr-10">
+        <div className="second lg:w-[40%] flex flex-col px-3 lg:px-0 lg:pr-10">
           {/* Image */}
           <Input
             type="file"
@@ -125,7 +128,7 @@ export function PostForm({ post }) {
           />
           {/*Img Preview */}
           {post && (
-            <div className="w-full ">
+            <div className="w-full">
               <img
                 src={storageService.previewFile(post.featuredImage)}
                 alt={post.title}
@@ -146,7 +149,7 @@ export function PostForm({ post }) {
               type="submit"
               className={`${
                 post ? "bg-green-500" : "bg-blue-500"
-              } text-lg text-gray-50`}
+              } text-lg text-gray-50 w-full lg:w-fit`}
             >
               {post ? "Update" : "Post"}
             </Button>

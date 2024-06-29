@@ -48,16 +48,56 @@ export function Header() {
   return (
     <header className="w-full shadow h-[7vh] px-4">
       <div className="flex items-center justify-between py-2">
-        <div className="logo">
-          <Link
-            style={{ fontFamily: "cursive" }}
-            to="/"
-            className="text-lg font-semibold"
+        {/* Hamburger */}
+        <details className="dropdown lg:hidden">
+          <summary
+            className="btn bg-transparent border-none rounded-full py-0"
+            onClick={() => {
+              document.getElementById("menu").classList.toggle("fa-xmark");
+            }}
           >
-            Blog with Appwrite
-          </Link>
-        </div>
-        <div className="flex items-center gap-4">
+            <i id="menu" className="fa-solid fa-bars text-lg"></i>
+          </summary>
+          <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li>
+              {navItems.map((item) =>
+                item.status ? (
+                  <NavLink
+                    key={item.name}
+                    to={item.slug}
+                    className={({ isActive }) =>
+                      `${
+                        isActive ? "text-blue-500 font-semibold " : undefined
+                      } font-mono duration-100 `
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                ) : null
+              )}
+              <NavLink
+                className={({ isActive }) =>
+                  `${
+                    isActive ? "text-blue-500 underline " : undefined
+                  } font-mono duration-100 text-sm lg:text-[1rem]`
+                }
+                to="/about"
+              >
+                About
+              </NavLink>{" "}
+            </li>
+          </ul>
+        </details>
+        {/* Logo */}
+        <Link
+          style={{ fontFamily: "cursive" }}
+          to="/"
+          className=" text-sm lg:text-lg font-semibold"
+        >
+          Blog with Appwrite
+        </Link>
+        {/* NavItems */}
+        <div className="lg:flex items-center gap-2 lg:gap-4 hidden">
           {navItems.map((item) =>
             item.status ? (
               <NavLink
@@ -66,7 +106,7 @@ export function Header() {
                 className={({ isActive }) =>
                   `${
                     isActive ? "text-blue-500 underline " : undefined
-                  } font-mono duration-100`
+                  } font-mono duration-100 text-sm lg:text-[1rem] `
                 }
               >
                 {item.name}
@@ -77,7 +117,7 @@ export function Header() {
             className={({ isActive }) =>
               `${
                 isActive ? "text-blue-500 underline " : undefined
-              } font-mono duration-100`
+              } font-mono duration-100 text-sm lg:text-[1rem]`
             }
             to="/about"
           >
@@ -85,7 +125,9 @@ export function Header() {
           </NavLink>
         </div>
         <div className="section flex gap-3 items-center">
+          {/* DarkMode Btn */}
           <DarkModeBtn onChange={handleToggle} />
+          {/* Logout/Register Btn */}
           {authStatus ? (
             <li className="list-none">
               <LogoutBtn />
