@@ -11,6 +11,7 @@ export function Signup() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
@@ -37,6 +38,9 @@ export function Signup() {
       setProgress(100);
     }
   };
+  // Confirm password
+  const password = watch("password");
+
   return (
     <div className="flex flex-col items-center justify-between p-4 shadow-lg rounded-xl">
       <div className="text-center my-4">
@@ -103,6 +107,25 @@ export function Signup() {
           {errors.password?.message && (
             <p className="text-red-500 text-xs font-mono">
               {errors.password.message}
+            </p>
+          )}
+        </div>
+        {/* Confirm Password */}
+        <div className="confirm">
+          <Input
+            label="Confirm Password: "
+            type="password"
+            placeholder="Confirm password"
+            {...register("confirmPassword", {
+              required: "Please confirm your password",
+              validate: {
+                match: (v) => v === password || "Password does not match",
+              },
+            })}
+          />
+          {errors.confirmPassword?.message && (
+            <p className="text-red-500 text-xs font-mono">
+              {errors.confirmPassword.message}
             </p>
           )}
         </div>
