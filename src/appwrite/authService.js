@@ -17,6 +17,7 @@ export class AuthService {
       return this.login({ email, password });
     } catch (error) {
       console.log("appwriteService :: createAccount :: error", error);
+      throw new Error(error.message || "Signup failed. Please try again.");
     }
   }
   async login({ email, password }) {
@@ -24,6 +25,7 @@ export class AuthService {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
       console.log("appwriteService :: login :: error", error);
+      throw new Error(error.message || "login failed. Please try again.");
     }
   }
   async getUser() {

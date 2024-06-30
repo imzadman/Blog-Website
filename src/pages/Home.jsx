@@ -4,17 +4,23 @@ import { Card, Button } from "../Components/index";
 import { Images } from "../img/Images";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const authStatus = useSelector((state) => state.auth.status);
+  const setProgress = useOutletContext().setProgress;
+
   useEffect(() => {
+    setProgress(10);
     dbService.getPosts([]).then((posts) => {
       if (posts) {
         setPosts(posts.documents);
+        setProgress(100);
       }
     });
-  }, []);
+  }, [setProgress]);
+
   return posts && posts.length >= 0 ? (
     <>
       <div className="hero-section">

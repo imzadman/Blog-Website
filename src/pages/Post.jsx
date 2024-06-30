@@ -7,6 +7,7 @@ import { storageService } from "../appwrite/storageService";
 import parse from "html-react-parser";
 import { Button } from "../Components/index";
 import { useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 
 function Post() {
   const [post, setPost] = useState(null);
@@ -14,24 +15,34 @@ function Post() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const setProgress = useOutletContext().setProgress;
+
   useEffect(() => {
+    setProgress(20);
     if (slug) {
       dbService.getPost(slug).then((post) => {
+        setProgress(40);
         if (post) {
           setPost(post);
+          setProgress(100);
         } else {
           navigate("/");
+          setProgress(100);
         }
       });
     } else {
       navigate("/");
+      setProgress(100);
     }
-  }, [slug, navigate]);
+  }, [slug, navigate, setProgress]);
   const deleteHandler = () => {
+    setProgress(20);
     dbService.deletePost(post.$id).then((status) => {
       if (status) {
         storageService.deleteFile(post.featuredImage);
+        setProgress(40);
         navigate("/");
+        setProgress(100);
       }
     });
   };

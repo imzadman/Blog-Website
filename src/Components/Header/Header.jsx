@@ -45,6 +45,9 @@ export function Header() {
       setTheme("light");
     }
   };
+  // Profile
+  const userData = useSelector((state) => state.auth.userData);
+
   return (
     <header className="w-full shadow h-[7vh] px-4">
       <div className="flex items-center justify-between py-2">
@@ -130,7 +133,30 @@ export function Header() {
           {/* Logout/Register Btn */}
           {authStatus ? (
             <li className="list-none">
-              <LogoutBtn />
+              <details
+                className="dropdown border-none"
+                onClick={() => {
+                  document
+                    .getElementById("carrot")
+                    .classList.toggle("fa-caret-up");
+                  document
+                    .getElementById("carrot")
+                    .classList.toggle("fa-caret-down");
+                }}
+              >
+                <summary className="btn flex px-2 bg-transparent hover:bg-transparent border-none">
+                  <i className="fa-solid fa-user lg:text-lg hidden md:flex"></i>
+                  <span className="lg:text-lg text-xs font-mono font-medium">
+                    {userData.name}
+                  </span>
+                  <i id="carrot" className="fa-solid fa-caret-down"></i>
+                </summary>
+                <ul className="menu dropdown-content bg-base-100 border-gray-400 border rounded z-[1] w-26 p-0 shadow">
+                  <li>
+                    <LogoutBtn />
+                  </li>
+                </ul>
+              </details>
             </li>
           ) : (
             <li className="list-none">

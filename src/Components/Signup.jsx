@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { authService } from "../appwrite/authService";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import { Input, Button } from "./index";
 
 export function Signup() {
+  const setProgress = useOutletContext().setProgress;
   const {
     register,
     handleSubmit,
@@ -17,17 +18,23 @@ export function Signup() {
   const [error, setError] = useState("");
   const signupHandler = async (data) => {
     setError("");
+    setProgress(20);
     try {
       const session = await authService.createAccount(data);
+      setProgress(40);
       if (session) {
         const userData = await authService.getUser();
+        setProgress(60);
         if (userData) {
           dispatch(login(userData));
+          setProgress(80);
           navigate("/");
+          setProgress(100);
         }
       }
     } catch (error) {
-      setError(error.message);
+      setError(error.message || "Signup failed. Please try again.");
+      setProgress(100);
     }
   };
   return (
@@ -109,9 +116,7 @@ export function Signup() {
           </Button>
         </div>
       </form>
-      {error?.message && (
-        <p className="text-red-500 mb-3 text-xs font-mono">{error.message}</p>
-      )}
+      {error && <p className="text-red-500 mb-3 text-xs font-mono">{error}</p>}
       <div className="message flex items-center">
         <p className="text-xs">
           Already have an Account?&nbsp;

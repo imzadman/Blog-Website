@@ -5,8 +5,11 @@ import { storageService } from "../appwrite/storageService";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Input, Button, Select, RTE } from "./index";
+import { useOutletContext } from "react-router-dom";
 
 export function PostForm({ post }) {
+  const setProgress = useOutletContext().setProgress;
+
   const { register, handleSubmit, control, watch, setValue, getValues, reset } =
     useForm({
       defaultValues: {
@@ -27,33 +30,43 @@ export function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const handler = async (data) => {
+    setProgress(20);
     if (post) {
       const file = data.image[0]
         ? await storageService.uploadFile(data.image[0])
         : null;
+      setProgress(30);
       if (file) {
         await storageService.deleteFile(post.featuredImage);
+        setProgress(50);
       }
       const dbPost = await dbService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
+      setProgress(80);
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
+        setProgress(100);
       }
     } else {
+      setProgress(20);
       const file = data.image[0]
         ? await storageService.uploadFile(data.image[0])
         : null;
+      setProgress(40);
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
+        setProgress(60);
         const dbPost = await dbService.createPost({
           ...data,
           userId: userData.$id,
         });
+        setProgress(80);
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+          setProgress(100);
         }
       }
     }

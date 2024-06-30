@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { dbService } from "../appwrite/dbService";
 import { Card } from "../Components/index";
+import { useOutletContext } from "react-router-dom";
 
 function AllPosts() {
+  const setProgress = useOutletContext().setProgress;
   const [posts, setPosts] = useState([]);
   useEffect(() => {
+    setProgress(20);
     dbService.getPosts().then((posts) => {
       if (posts) {
         setPosts(posts.documents);
+        setProgress(100);
       }
     });
   }, []);
