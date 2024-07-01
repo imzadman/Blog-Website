@@ -5,6 +5,7 @@ import { authService } from "../appwrite/authService";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import { Input, Button } from "./index";
+import toast from "react-hot-toast";
 
 export function Signup() {
   const setProgress = useOutletContext().setProgress;
@@ -16,27 +17,39 @@ export function Signup() {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const signupHandler = async (data) => {
-    setError("");
+    // setError("");
     setProgress(20);
-    try {
-      const session = await authService.createAccount(data);
-      setProgress(40);
-      if (session) {
-        const userData = await authService.getUser();
-        setProgress(60);
-        if (userData) {
-          dispatch(login(userData));
-          setProgress(80);
-          navigate("/");
+    toast.promise(
+      new Promise(async (resolve, reject) => {
+        try {
+          const session = await authService.createAccount(data);
+          setProgress(40);
+          if (session) {
+            const userData = await authService.getUser();
+            setProgress(60);
+            if (userData) {
+              dispatch(login(userData));
+              setProgress(80);
+              navigate("/");
+              setProgress(100);
+              resolve();
+            }
+          }
+        } catch (error) {
+          // setError(error.message || "Signup failed. Please try again.");
+          toast.error(error.message || "Signup failed. Please try again.");
+          reject(error);
           setProgress(100);
         }
+      }),
+      {
+        loading: "Signing in...",
+        success: <span>Successfully Signed in!</span>,
+        error: <span>Signup failed.</span>,
       }
-    } catch (error) {
-      setError(error.message || "Signup failed. Please try again.");
-      setProgress(100);
-    }
+    );
   };
   // Confirm password
   const password = watch("password");
@@ -139,7 +152,7 @@ export function Signup() {
           </Button>
         </div>
       </form>
-      {error && <p className="text-red-500 mb-3 text-xs font-mono">{error}</p>}
+      {/* {error && <p className="text-red-500 mb-3 text-xs font-mono">{error}</p>} */}
       <div className="message flex items-center">
         <p className="text-xs">
           Already have an Account?&nbsp;

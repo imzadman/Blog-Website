@@ -3,6 +3,7 @@ import { authService } from "../../appwrite/authService";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function LogoutBtn() {
   const dispatch = useDispatch();
@@ -13,10 +14,12 @@ export function LogoutBtn() {
       .logout()
       .then(() => {
         dispatch(logout());
+        toast.success("You are logged out");
         navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Logout failed");
       });
   };
   return (

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Input, Button, Select, RTE } from "./index";
 import { useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function PostForm({ post }) {
   const setProgress = useOutletContext().setProgress;
@@ -46,6 +47,7 @@ export function PostForm({ post }) {
       });
       setProgress(80);
       if (dbPost) {
+        toast.success("Updated successfully");
         navigate(`/post/${dbPost.$id}`);
         setProgress(100);
       }
@@ -65,6 +67,7 @@ export function PostForm({ post }) {
         });
         setProgress(80);
         if (dbPost) {
+          toast.success("Posted successfully");
           navigate(`/post/${dbPost.$id}`);
           setProgress(100);
         }

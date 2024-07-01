@@ -5,11 +5,12 @@ import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { authService } from "../appwrite/authService";
 import { login } from "../features/authSlice";
 import { Input, Button } from "./index";
+import toast from "react-hot-toast";
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const setProgress = useOutletContext().setProgress;
   const {
     register,
@@ -18,7 +19,7 @@ export function Login() {
   } = useForm();
   const loginHandler = async (data) => {
     setProgress(20);
-    setError("");
+    // setError("");
     try {
       const session = await authService.login(data);
       setProgress(40);
@@ -28,12 +29,14 @@ export function Login() {
         if (userData) {
           dispatch(login(userData));
           setProgress(80);
+          toast.success("Logged in successfully");
           navigate("/");
           setProgress(100);
         }
       }
     } catch (error) {
-      setError(error.message || "Login failed. Please try again.");
+      // setError(error.message || "Login failed. Please try again.");
+      toast.error(error.message);
       setProgress(100);
     }
   };
@@ -102,11 +105,11 @@ export function Login() {
           </div>
         </form>
         {/* Error */}
-        {error && (
+        {/* {error && (
           <span className="text-red-500 mb-2 font-mono text-xs line-clamp-3 ">
             {error}
           </span>
-        )}
+        )} */}
         <div className="message text-center flex items-center">
           <p className="text-xs">Don&apos;t have an Account?&nbsp;</p>
           <Link

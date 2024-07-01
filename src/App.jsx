@@ -6,7 +6,7 @@ import { login, logout } from "./features/authSlice";
 import { Header, Footer } from "./Components/index";
 import { Outlet } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-
+import { Toaster } from "react-hot-toast";
 function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -39,6 +39,7 @@ function App() {
           }}
         />
         <Header />
+        <Toaster position="top-right" reverseOrder={false} />
         <main className="w-full min-h-full">
           <Outlet context={{ setProgress }} />
         </main>

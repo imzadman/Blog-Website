@@ -8,6 +8,7 @@ import parse from "html-react-parser";
 import { Button } from "../Components/index";
 import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Post() {
   const [post, setPost] = useState(null);
@@ -39,10 +40,16 @@ function Post() {
     setProgress(20);
     dbService.deletePost(post.$id).then((status) => {
       if (status) {
-        storageService.deleteFile(post.featuredImage);
-        setProgress(40);
-        navigate("/");
-        setProgress(100);
+        try {
+          storageService.deleteFile(post.featuredImage);
+          setProgress(40);
+          toast.success("Post was deleted!");
+          navigate("/");
+          setProgress(100);
+        } catch (error) {
+          toast.error("Failed to delete post");
+          setProgress(100);
+        }
       }
     });
   };
