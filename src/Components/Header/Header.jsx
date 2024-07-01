@@ -151,7 +151,7 @@ export function Header() {
                   </span>
                   <i id="carrot" className="fa-solid fa-caret-down"></i>
                 </summary>
-                <ul className="menu dropdown-content bg-base-100 border-gray-400 border rounded z-[1] w-26 p-0 shadow">
+                <ul className="menu dropdown-content bg-base-100 border-gray-400 border rounded px-1 z-[1] w-26 p-0 shadow hover:bg-blue-500 duration-100">
                   <li>
                     <LogoutBtn />
                   </li>

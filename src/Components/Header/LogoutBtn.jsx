@@ -25,9 +25,10 @@ export function LogoutBtn() {
   return (
     <button
       onClick={handler}
-      className={`font-mono duration-100 py-1 rounded px-2 hover:opacity-[85%] hover:bg-blue-500 hover:text-gray-50 flex items-center gap-1 `}
+      className={`font-mono duration-100 py-1 px-1 lg:py-2 lg:px-0 rounded hover:opacity-[85%] hover:text-gray-50 text-center `}
     >
-      <i className="fa-solid fa-arrow-right-from-bracket"></i>Log out
+      <i className="fa-solid fa-arrow-right-from-bracket"></i>
+      <p className="">Log out</p>
     </button>
   );
 }
